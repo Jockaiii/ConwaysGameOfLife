@@ -9,7 +9,7 @@ namespace ConwaysGameOfLife
         /// </summary>
         public static void OutputStart()
         {
-            Console.WriteLine("Welcome to the Game Of Life \nPlease choose a save or start a new randomised game.");
+            Console.WriteLine("Welcome to the Game Of Life \nPlease choose a save or start a new randomised game. Or perhaps select a preset?");
             Console.WriteLine("Press 1 to start a new game \nPress 2 for saved games \nPress 3 for presets");
         }
 
@@ -22,9 +22,7 @@ namespace ConwaysGameOfLife
             for (int i = 0; i < agarPlates.AgarPlateHeight; i++)
             {
                 for (int j = 0; j < agarPlates.AgarPlateWidth; j++)
-                {
                     Console.Write(Cell.AliveIcons[Models.AgarPlates.AgarPlate[i, j].Alive]);
-                }
                 Console.Write("\n");
             }
             Console.WriteLine("Press any key to continue");

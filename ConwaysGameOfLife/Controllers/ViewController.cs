@@ -9,7 +9,7 @@ namespace ConwaysGameOfLife.Controllers
         /// lämpliga metoder beroende på användarens val.
         /// </summary>
         /// <param name="game">Den nuvarande instansen av Game.cs</param>
-        /// <param name="agarPlates">Den nuvarande instansens ag AgarPlates.cs</param>
+        /// <param name="agarPlates">Den nuvarande instansens av AgarPlates.cs</param>
         public static void StartInput(Game game, Models.AgarPlates agarPlates)
         {
             string input;
@@ -17,7 +17,7 @@ namespace ConwaysGameOfLife.Controllers
             {
                 Output.OutputStart();
                 input = Console.ReadLine();
-            } while (input.Length != 1 && int.TryParse(input, out int result) && result !> 0 && result !< 4);
+            } while ((!int.TryParse(input, out int result) && input.Length != 1) || result < 1 || result > 3);
 
             if (int.Parse(input) == 1)
             {
@@ -51,7 +51,7 @@ namespace ConwaysGameOfLife.Controllers
             {
                 Output.OutputSavedAgarPlates(SavedAgarPlates);
                 input = Console.ReadLine();
-            } while (!int.TryParse(input, out int result) && result !> 0 && result !<= SavedAgarPlates.Length);
+            } while ((!int.TryParse(input, out int result) && input.Length != 1) || result < 1 || result > SavedAgarPlates.Length);
             return int.Parse(input);
         }
 
@@ -92,7 +92,7 @@ namespace ConwaysGameOfLife.Controllers
             {
                 Output.OutputPresets(agarPlatesPresets);
                 input = Console.ReadLine();
-            } while (!int.TryParse(input, out int result) && result! > 0 && result! <= agarPlatesPresets.Length);
+            } while ((!int.TryParse(input, out int result) && input.Length != 1) || result < 1 || result > agarPlatesPresets.Length);
             return int.Parse(input);
         }
     }

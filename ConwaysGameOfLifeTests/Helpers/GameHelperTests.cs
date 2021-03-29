@@ -1,11 +1,6 @@
 ﻿using NUnit.Framework;
-using ConwaysGameOfLife.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using Newtonsoft.Json;
-using System.Linq;
 
 namespace ConwaysGameOfLife.Helpers.Tests
 {
@@ -24,7 +19,6 @@ namespace ConwaysGameOfLife.Helpers.Tests
             foreach (var item in Models.AgarPlates.AgarPlate) // Sätter alla cellers neigbours till 0 för att slippa massa onödig extra kod. 
                 item.Neighbours = 0;                           // Eftersom det är 100 celler så är sannoligheten att en slumpad array skulle vara lika med
             for (int i = 0; i < agarPlates.AgarPlateHeight; i++) // den sparade arrayen väldigt låg. Och för att vara säker kan man köra testet flera gånger.
-            {
                 for (int j = 0; j < agarPlates.AgarPlateWidth; j++)
                 {
                     if (Models.AgarPlates.AgarPlate[i, j].Alive)
@@ -32,7 +26,6 @@ namespace ConwaysGameOfLife.Helpers.Tests
                     else
                         testAgarPlate[i, j] = new Cell(false);
                 }
-            }
 
             GameHelper.AgarPlateSaver(); // Sparar AgarPlate[,].
 
@@ -46,13 +39,9 @@ namespace ConwaysGameOfLife.Helpers.Tests
         public bool ArrayChecker(Models.AgarPlates agarPlates, Cell[,] testAgarPlate)
         {
             for (int i = 0; i < agarPlates.AgarPlateHeight; i++) // Loopar igenom varje varje element i arrayerna och returnerar false om inte alla element är lika. Annars true
-            {
                 for (int j = 0; j < agarPlates.AgarPlateWidth; j++)
-                {
                     if (testAgarPlate[i, j].Alive != Models.AgarPlates.AgarPlate[i, j].Alive)
                         return false;
-                }
-            }
             return true;
         }
     }

@@ -15,14 +15,6 @@ namespace ConwaysGameOfLife.Helpers
             Directory.CreateDirectory("Saves"); // Skapar Directory om den inte redan finns
             var time = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"); // Sparar den nuvarande tiden på enheten för att sedan användas som filnamn.
             string jsonString = JsonConvert.SerializeObject(Models.AgarPlates.AgarPlate);
-            //string jsonString = JsonConvert.SerializeObject(Models.AgarPlates.AgarPlate, Formatting.Indented, // Formatering snodd av Marcus
-            //    new JsonSerializerSettings
-            //    {
-            //        Formatting = Formatting.Indented,
-            //        NullValueHandling = NullValueHandling.Ignore,
-            //        DefaultValueHandling = DefaultValueHandling.Ignore,
-            //        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-            //    });
             File.AppendAllText(@"Saves\" + time + ".json", jsonString);
         }
 
@@ -88,9 +80,7 @@ namespace ConwaysGameOfLife.Helpers
             for (int i = 0; i < agarPlates.AgarPlateHeight; i++)
             {
                 for (int j = 0; j < agarPlates.AgarPlateWidth; j++)
-                {
                     sw.Write(Cell.AliveIcons[Models.AgarPlates.AgarPlate[i, j].Alive] + " ");
-                }
                 sw.Write("\n");
             }
 

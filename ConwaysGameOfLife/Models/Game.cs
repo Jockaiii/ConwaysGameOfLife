@@ -24,7 +24,6 @@ namespace ConwaysGameOfLife
             Cell[,] NextGeneration = new Cell[agarPlates.AgarPlateHeight, agarPlates.AgarPlateWidth]; // Gör en till tom 2d array som jag sedan kan uppdatera
                                                                                                      // properties på utan att ändra den nuvarande spelplanen                                                                                                          
             for (int i = 0; i < agarPlates.AgarPlateHeight; i++) // Kollar varje cell i Agarplate.
-            {
                 for (int j = 0; j < agarPlates.AgarPlateWidth; j++)
                 {
                     Models.AgarPlates.AgarPlate[i, j].Neighbours = 0; // Återställer nuvarande cellens neighbours till 0. (för utträkning).
@@ -49,7 +48,6 @@ namespace ConwaysGameOfLife
                     else
                         NextGeneration[i, j] = new Cell(Models.AgarPlates.AgarPlate[i, j].Alive);
                 }
-            }
 
             if (!IsTesting) // Innan AgarPlaten uppdateras.
                 Controllers.ViewController.OutputSaveController(); // Tillkallar metod som ber användaren om input om hen vill spara AgarPlaten eller inte.
