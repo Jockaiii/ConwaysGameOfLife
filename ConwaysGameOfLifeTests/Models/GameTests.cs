@@ -1,8 +1,4 @@
 ﻿using NUnit.Framework;
-using ConwaysGameOfLife;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConwaysGameOfLife.Tests
 {

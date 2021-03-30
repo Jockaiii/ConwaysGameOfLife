@@ -27,13 +27,13 @@ namespace ConwaysGameOfLife.Controllers
             }
             else if (int.Parse(input) == 2)
             {
-                Helpers.GameHelper.AgarPlateLoader();
+                Helpers.GameHelper.AgarPlateLoader(game, agarPlates);
                 Output.OutputAgarPlate(agarPlates);
                 game.CheckVitalState(agarPlates);
             }
             else
             {
-                Helpers.GameHelper.AgarPlatePresetsLoader(agarPlates);
+                Helpers.GameHelper.AgarPlatePresetsLoader(game, agarPlates);
                 Output.OutputAgarPlate(agarPlates);
                 game.CheckVitalState(agarPlates);
             }

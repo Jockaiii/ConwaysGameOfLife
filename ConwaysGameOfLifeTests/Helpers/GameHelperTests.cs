@@ -8,7 +8,7 @@ namespace ConwaysGameOfLife.Helpers.Tests
     public class GameHelperTests
     {
         [Test()]
-        public void AgarPlateSaverTest() // OBS FORMATERINGEN I GameHelper.AgarPlateSaver() gör så att testet inte går igenom. Antagligen ignore default value.
+        public void AgarPlateSaverTest()
         {
             Game game = new Game();
             Models.AgarPlates agarPlates = new Models.AgarPlates();

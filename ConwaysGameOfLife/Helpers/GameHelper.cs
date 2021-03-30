@@ -12,23 +12,28 @@ namespace ConwaysGameOfLife.Helpers
         /// </summary>
         public static void AgarPlateSaver()
         {
-            Directory.CreateDirectory("Saves"); // Skapar Directory om den inte redan finns
+            var savesFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Saves"); // Snodd av Marcus. Path till Documents.
+            Directory.CreateDirectory(savesFolder); // Skapar Directory om den inte redan finns
             var time = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"); // Sparar den nuvarande tiden på enheten för att sedan användas som filnamn.
             string jsonString = JsonConvert.SerializeObject(Models.AgarPlates.AgarPlate);
-            File.AppendAllText(@"Saves\" + time + ".json", jsonString);
+            File.AppendAllText(savesFolder + @"\Saves" + time + ".json", jsonString);
         }
 
         /// <summary>
         /// Metod som hämtar alla sparade .json filers filnamn (+ path) och tillkallar metod för att-
         /// ta emot och felhantera användar input. för att slutligen deserialisera .json filen och kopiera datan till den nuvarande AgarPlate[,]n.
         /// </summary>
-        public static void AgarPlateLoader()
+        public static void AgarPlateLoader(Game game, Models.AgarPlates agarPlates)
         {
-            Directory.CreateDirectory("Saves"); // Skapar Directory om den inte redan finns
-            string[] savedAgarPlates = Directory.GetFiles(@"Saves\"); // Läser in alla sparade json filer och lägger dom stängar i en array.
+            var savesFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Saves");
+            Directory.CreateDirectory(savesFolder); // Skapar Directory om den inte redan finns
+            string[] savedAgarPlates = Directory.GetFiles(savesFolder); // Läser in alla sparade json filer och lägger dom stängar i en array.
 
             if (savedAgarPlates.Length == 0 || savedAgarPlates is null)  // Om det inte finns några sparade games.
+            {
                 Output.OutputNoSavedAgarPlates();
+                Controllers.ViewController.StartInput(game, agarPlates);
+            }
             else
             {
                 int input = Controllers.ViewController.OutputSavedAgarPlatesController(savedAgarPlates); // Tillkallar metod som skriver ut de sparade filerna och tillkallar metod som tar emot input av användaren
@@ -40,23 +45,27 @@ namespace ConwaysGameOfLife.Helpers
         /// <summary>
         /// Metod som används för att ladda in skapade presets till spelet samt tolka filen till data för AgarPlate[,].
         /// </summary>
-        /// <param name="agarPlate">instans av AgarPlate.cs</param>
-        public static void AgarPlatePresetsLoader(Models.AgarPlates agarPlate)
+        /// <param name="agarPlates">instans av AgarPlate.cs</param>
+        public static void AgarPlatePresetsLoader(Game game, Models.AgarPlates agarPlates)
         {
-            Directory.CreateDirectory("Presets"); // Skapar Directory om den inte redan finns
-            string[] agarPlatePresets = Directory.GetFiles(@"Presets\");
+            var presetsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Presets");
+            Directory.CreateDirectory(presetsFolder); // Skapar Directory om den inte redan finns
+            string[] agarPlatePresets = Directory.GetFiles(presetsFolder);
 
-            if (agarPlatePresets.Length == 1 || agarPlatePresets is null) // om det inte finns några sparade presets.
+            if (agarPlatePresets.Length == 0 || agarPlatePresets is null) // om det inte finns några sparade presets.
+            {
                 Output.OutputNoSavedAgarPlates();
+                Controllers.ViewController.StartInput(game, agarPlates);
+            }
             else
             {
                 int input = Controllers.ViewController.OutputPresetsController(agarPlatePresets);
                 string[] cellRows = File.ReadAllLines(agarPlatePresets[input-1]);
 
-                for (int i = 0; i < agarPlate.AgarPlateHeight; i++)
+                for (int i = 0; i < agarPlates.AgarPlateHeight; i++)
                 {
                     string[] cells = cellRows[i].Split(" ");
-                    for (int j = 0; j < agarPlate.AgarPlateWidth; j++)
+                    for (int j = 0; j < agarPlates.AgarPlateWidth; j++)
                     {
                         if (cells[j] == "1")
                             Models.AgarPlates.AgarPlate[i, j] = new Cell { Alive = true };

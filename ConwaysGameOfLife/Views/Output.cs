@@ -62,7 +62,7 @@ namespace ConwaysGameOfLife
         /// </summary>
         public static void OutputNoSavedAgarPlates()
         {
-            Console.WriteLine("No saved AgarPlates");
+            Console.WriteLine("\nNo saved AgarPlates\n");
         }
     }
 }
